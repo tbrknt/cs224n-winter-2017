@@ -61,8 +61,8 @@ def sanity_check():
     quad = lambda x: (np.sum(x ** 2), x * 2)
 
     print "Running sanity checks..."
-    # gradcheck_naive(quad, np.array(123.456))      # scalar test
-    # gradcheck_naive(quad, np.random.randn(3,))    # 1-D test
+    gradcheck_naive(quad, np.array(123.456))      # scalar test
+    gradcheck_naive(quad, np.random.randn(3,))    # 1-D test
     gradcheck_naive(quad, np.random.randn(4,5))   # 2-D test
     print ""
 
