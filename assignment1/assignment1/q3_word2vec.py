@@ -15,7 +15,7 @@ def normalizeRows(x):
     """
 
     ### YOUR CODE HERE
-    raise NotImplementedError
+    x = np.divide(x, np.sqrt(np.sum(np.power(x, 2), axis=1, keepdims=True)))
     ### END YOUR CODE
 
     return x
@@ -58,7 +58,13 @@ def softmaxCostAndGradient(predicted, target, outputVectors, dataset):
     """
 
     ### YOUR CODE HERE
-    raise NotImplementedError
+    y_hat = softmax(np.dot(outputVectors, predicted))
+    y_real = np.zeros(shape=y_hat.shape)
+    y_real[target] = 1
+    y_diff = y_hat - y_real
+    cost = - np.sum(y_real * np.log(y_hat))
+    gradPred = np.dot(outputVectors.T, y_diff)
+    grad = np.outer(predicted, y_diff).T
     ### END YOUR CODE
 
     return cost, gradPred, grad
@@ -96,7 +102,18 @@ def negSamplingCostAndGradient(predicted, target, outputVectors, dataset,
     indices.extend(getNegativeSamples(target, dataset, K))
 
     ### YOUR CODE HERE
-    raise NotImplementedError
+    sigm_uv = sigmoid(np.dot(outputVectors[indices, :], predicted))
+    cost = -np.log(sigm_uv[0]) - np.sum(np.log(1-sigm_uv[1:]))
+
+    gradPred = np.dot(sigm_uv[0] - 1, outputVectors[target, :]) + \
+               np.dot(sigm_uv[1:], outputVectors[indices[1:]])
+    grad = np.zeros(outputVectors.shape)
+    grad[target, :] = np.dot(sigm_uv[0] - 1, predicted)
+    # grad[indices[1:], :] += np.outer(sigm_uv[1:], predicted)
+    # due to repeating indices, the stmt above does not work
+    k_grads = np.outer(sigm_uv[1:], predicted)
+    for indices_ind, word_ind in enumerate(indices[1:]):
+        grad[word_ind, :] += k_grads[indices_ind]
     ### END YOUR CODE
 
     return cost, gradPred, grad
@@ -109,7 +126,7 @@ def skipgram(currentWord, C, contextWords, tokens, inputVectors, outputVectors,
     Implement the skip-gram model in this function.
 
     Arguments:
-    currrentWord -- a string of the current center word
+    currentWord -- a string of the current center word
     C -- integer, context size
     contextWords -- list of no more than 2*C strings, the context words
     tokens -- a dictionary that maps words to their indices in
@@ -131,7 +148,15 @@ def skipgram(currentWord, C, contextWords, tokens, inputVectors, outputVectors,
     gradOut = np.zeros(outputVectors.shape)
 
     ### YOUR CODE HERE
-    raise NotImplementedError
+    predicted_id = tokens[currentWord]
+    predicted = inputVectors[predicted_id]
+    for cw in contextWords:
+        target = tokens[cw]
+        cur_cost, gradPred, grad = word2vecCostAndGradient(
+            predicted=predicted, target=target, outputVectors=outputVectors, dataset=dataset)
+        cost += cur_cost
+        gradIn[predicted_id, :] += gradPred
+        gradOut += grad
     ### END YOUR CODE
 
     return cost, gradIn, gradOut
@@ -155,7 +180,16 @@ def cbow(currentWord, C, contextWords, tokens, inputVectors, outputVectors,
     gradOut = np.zeros(outputVectors.shape)
 
     ### YOUR CODE HERE
-    raise NotImplementedError
+    target = tokens[currentWord]
+    context_ids = [tokens[cw] for cw in contextWords]
+    v_hat = np.sum(inputVectors[context_ids,:], axis=0)
+    cost, gradPred, grad = word2vecCostAndGradient(
+        predicted=v_hat, target=target, outputVectors=outputVectors, dataset=dataset)
+    # gradIn[context_ids, :] += gradPred
+    # due to repeating indices, the stmt above does not work
+    for cid in context_ids:
+        gradIn[cid, :] += gradPred
+    gradOut = grad
     ### END YOUR CODE
 
     return cost, gradIn, gradOut
