@@ -65,7 +65,7 @@ def getRegularizationValues():
     """
     values = None   # Assign a list of floats in the block below
     ### YOUR CODE HERE
-    values = [0.5, 1.0, 5.0, 7.0, 10.0, 15.0]
+    values = np.linspace(0, 15, num= int((15-0)/0.1+1))
     ### END YOUR CODE
     return sorted(values)
 
