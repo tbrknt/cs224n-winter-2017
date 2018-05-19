@@ -65,7 +65,7 @@ def getRegularizationValues():
     """
     values = None   # Assign a list of floats in the block below
     ### YOUR CODE HERE
-    raise NotImplementedError
+    values = [0.5, 1.0, 5.0, 7.0, 10.0, 15.0]
     ### END YOUR CODE
     return sorted(values)
 
@@ -89,7 +89,11 @@ def chooseBestModel(results):
     bestResult = None
 
     ### YOUR CODE HERE
-    raise NotImplementedError
+    best_dev = -1.0
+    for r in results:
+        if r["dev"] > best_dev:
+            best_dev = r["dev"]
+            bestResult = r
     ### END YOUR CODE
 
     return bestResult
