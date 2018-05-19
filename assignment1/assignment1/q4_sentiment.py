@@ -65,7 +65,7 @@ def getRegularizationValues():
     """
     values = None   # Assign a list of floats in the block below
     ### YOUR CODE HERE
-    values = np.linspace(0, 15, num= int((15-0)/0.1+1))
+    values = [pow(10, i) for i in range(-5, 3)]
     ### END YOUR CODE
     return sorted(values)
 
@@ -94,6 +94,8 @@ def chooseBestModel(results):
         if r["dev"] > best_dev:
             best_dev = r["dev"]
             bestResult = r
+    # one-line version
+    # bestResult = max(results, key=lambda x: x["dev"])
     ### END YOUR CODE
 
     return bestResult
