@@ -136,7 +136,8 @@ class SoftmaxModel(Model):
             train_op: The Op for training.
         """
         ### YOUR CODE HERE
-        raise NotImplementedError
+        optimizer = tf.train.GradientDescentOptimizer()
+        train_op = optimizer.minimize(loss)
         ### END YOUR CODE
         return train_op
 
