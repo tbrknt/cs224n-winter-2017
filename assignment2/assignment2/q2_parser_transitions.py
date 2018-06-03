@@ -21,6 +21,7 @@ class PartialParse(object):
         self.sentence = sentence
 
         ### YOUR CODE HERE
+        raise NotImplementedError
         ### END YOUR CODE
 
     def parse_step(self, transition):
@@ -31,6 +32,7 @@ class PartialParse(object):
                         and right-arc transitions.
         """
         ### YOUR CODE HERE
+        raise NotImplementedError
         ### END YOUR CODE
 
     def parse(self, transitions):
@@ -65,6 +67,7 @@ def minibatch_parse(sentences, model, batch_size):
     """
 
     ### YOUR CODE HERE
+    raise NotImplementedError
     ### END YOUR CODE
 
     return dependencies

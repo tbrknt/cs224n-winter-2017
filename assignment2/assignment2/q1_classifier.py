@@ -45,6 +45,7 @@ class SoftmaxModel(Model):
             self.labels_placeholder
         """
         ### YOUR CODE HERE
+        raise NotImplementedError
         ### END YOUR CODE
 
     def create_feed_dict(self, inputs_batch, labels_batch=None):
@@ -68,6 +69,7 @@ class SoftmaxModel(Model):
             feed_dict: The feed dictionary mapping from placeholders to values.
         """
         ### YOUR CODE HERE
+        raise NotImplementedError
         ### END YOUR CODE
         return feed_dict
 
@@ -88,6 +90,7 @@ class SoftmaxModel(Model):
             pred: A tensor of shape (batch_size, n_classes)
         """
         ### YOUR CODE HERE
+        raise NotImplementedError
         ### END YOUR CODE
         return pred
 
@@ -102,6 +105,7 @@ class SoftmaxModel(Model):
             loss: A 0-d tensor (scalar)
         """
         ### YOUR CODE HERE
+        raise NotImplementedError
         ### END YOUR CODE
         return loss
 
@@ -125,6 +129,7 @@ class SoftmaxModel(Model):
             train_op: The Op for training.
         """
         ### YOUR CODE HERE
+        raise NotImplementedError
         ### END YOUR CODE
         return train_op
 

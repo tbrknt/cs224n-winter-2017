@@ -54,6 +54,7 @@ class ParserModel(Model):
         (Don't change the variable names)
         """
         ### YOUR CODE HERE
+        raise NotImplementedError
         ### END YOUR CODE
 
     def create_feed_dict(self, inputs_batch, labels_batch=None, dropout=1):
@@ -79,6 +80,7 @@ class ParserModel(Model):
             feed_dict: The feed dictionary mapping from placeholders to values.
         """
         ### YOUR CODE HERE
+        raise NotImplementedError
         ### END YOUR CODE
         return feed_dict
 
@@ -100,6 +102,7 @@ class ParserModel(Model):
             embeddings: tf.Tensor of shape (None, n_features*embed_size)
         """
         ### YOUR CODE HERE
+        raise NotImplementedError
         ### END YOUR CODE
         return embeddings
 
@@ -130,6 +133,7 @@ class ParserModel(Model):
 
         x = self.add_embedding()
         ### YOUR CODE HERE
+        raise NotImplementedError
         ### END YOUR CODE
         return pred
 
@@ -147,6 +151,7 @@ class ParserModel(Model):
             loss: A 0-d tensor (scalar)
         """
         ### YOUR CODE HERE
+        raise NotImplementedError
         ### END YOUR CODE
         return loss
 
@@ -170,6 +175,7 @@ class ParserModel(Model):
             train_op: The Op for training.
         """
         ### YOUR CODE HERE
+        raise NotImplementedError
         ### END YOUR CODE
         return train_op
 

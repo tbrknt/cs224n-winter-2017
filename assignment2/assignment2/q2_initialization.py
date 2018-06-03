@@ -25,6 +25,7 @@ def xavier_weight_init():
             out: tf.Tensor of specified shape sampled from the Xavier distribution.
         """
         ### YOUR CODE HERE
+        raise NotImplementedError
         ### END YOUR CODE
         return out
     # Returns defined initializer function.

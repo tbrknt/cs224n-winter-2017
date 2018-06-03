@@ -23,7 +23,8 @@ def softmax(x):
                   tensor in this problem.
     """
 
-    ### YOUR CODE HEREz
+    ### YOUR CODE HERE
+    raise NotImplementedError
     ### END YOUR CODE
 
     return out
@@ -54,6 +55,7 @@ def cross_entropy_loss(y, yhat):
     """
 
     ### YOUR CODE HERE
+    raise NotImplementedError
     ### END YOUR CODE
 
     return out
