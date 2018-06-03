@@ -97,7 +97,7 @@ class SoftmaxModel(Model):
         ### YOUR CODE HERE
         self.W = tf.Variable(initial_value=tf.zeros([self.config.n_features, self.config.n_classes]))
         self.b = tf.Variable(initial_value=tf.zeros([1, self.config.n_classes]))
-        pred = softmax(self.W * self.input_placeholder + self.b)
+        pred = softmax(tf.matmul(self.input_placeholder, self.W) + self.b)
         ### END YOUR CODE
         return pred
 
@@ -136,7 +136,7 @@ class SoftmaxModel(Model):
             train_op: The Op for training.
         """
         ### YOUR CODE HERE
-        optimizer = tf.train.GradientDescentOptimizer()
+        optimizer = tf.train.GradientDescentOptimizer(self.config.lr)
         train_op = optimizer.minimize(loss)
         ### END YOUR CODE
         return train_op

@@ -27,7 +27,7 @@ def softmax(x):
     feature_max = tf.reduce_max(x, axis=1)
     out = x - tf.expand_dims(feature_max, axis=1)
     out = tf.exp(out)
-    out = tf.divide(out, tf.reduce_sum(out, axis=1))
+    out = tf.divide(out, tf.reduce_sum(out, axis=1, keep_dims=True))
     ### END YOUR CODE
 
     return out
