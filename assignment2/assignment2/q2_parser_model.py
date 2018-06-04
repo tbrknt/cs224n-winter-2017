@@ -56,7 +56,7 @@ class ParserModel(Model):
         ### YOUR CODE HERE
         self.input_placeholder = tf.placeholder(dtype=tf.int32, shape=(None, self.config.n_features))
         self.labels_placeholder = tf.placeholder(dtype=tf.float32, shape=(None, self.config.n_classes))
-        self.dropout_placeholder = tf.placeholder(dtype=tf.float32)
+        self.dropout_placeholder = tf.placeholder(tf.float32, []) # check that
         ### END YOUR CODE
 
     def create_feed_dict(self, inputs_batch, labels_batch=None, dropout=0):
@@ -141,10 +141,10 @@ class ParserModel(Model):
         x = self.add_embedding()
         ### YOUR CODE HERE
         init_op = xavier_weight_init()
-        self.W = init_op((self.config.n_features * self.config.embed_size, self.config.hidden_size))
-        self.b1 = init_op((self.config.hidden_size, ))
-        self.U = init_op((self.config.hidden_size, self.config.n_classes))
-        self.b2 = init_op((self.config.n_classes, ))
+        self.W = tf.Variable(init_op((self.config.n_features * self.config.embed_size, self.config.hidden_size)))
+        self.b1 = tf.Variable(tf.zeros((self.config.hidden_size, )))
+        self.U = tf.Variable(init_op((self.config.hidden_size, self.config.n_classes)))
+        self.b2 = tf.Variable(tf.zeros((self.config.n_classes, )))
         h = tf.nn.relu(tf.matmul(x, self.W) + self.b1)
         h_drop = tf.nn.dropout(h, keep_prob=self.dropout_placeholder)
         pred = tf.matmul(h_drop, self.U) + self.b2
