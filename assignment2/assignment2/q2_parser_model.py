@@ -59,7 +59,7 @@ class ParserModel(Model):
         self.dropout_placeholder = tf.placeholder(dtype=tf.float32)
         ### END YOUR CODE
 
-    def create_feed_dict(self, inputs_batch, labels_batch=None, dropout=1):
+    def create_feed_dict(self, inputs_batch, labels_batch=None, dropout=0):
         """Creates the feed_dict for the dependency parser.
 
         A feed_dict takes the form of:
@@ -83,7 +83,7 @@ class ParserModel(Model):
         """
         ### YOUR CODE HERE
         feed_dict = {self.input_placeholder: inputs_batch,
-                     self.dropout_placeholder: dropout}
+                     self.dropout_placeholder: 1-dropout}
         if labels_batch is not None:
             feed_dict[self.labels_placeholder] = labels_batch
         ### END YOUR CODE
@@ -146,7 +146,7 @@ class ParserModel(Model):
         self.U = init_op((self.config.hidden_size, self.config.n_classes))
         self.b2 = init_op((self.config.n_classes, ))
         h = tf.nn.relu(tf.matmul(x, self.W) + self.b1)
-        h_drop = tf.nn.dropout(h, keep_prob=1-self.dropout_placeholder)
+        h_drop = tf.nn.dropout(h, keep_prob=self.dropout_placeholder)
         pred = tf.matmul(h_drop, self.U) + self.b2
         ### END YOUR CODE
         return pred
@@ -276,6 +276,6 @@ def main(debug=True):
                 print "Done!"
 
 if __name__ == '__main__':
-    main()
+    main(False)
 
 
