@@ -78,7 +78,18 @@ def minibatch_parse(sentences, model, batch_size):
     """
 
     ### YOUR CODE HERE
-    raise NotImplementedError
+    partial_parses = [PartialParse(s) for s in sentences]
+    unfinished_parses = [pp for pp in partial_parses]
+    while len(unfinished_parses) > 0:
+        current_parses = unfinished_parses[:batch_size]
+        transitions = model.predict(current_parses)
+        for p, t in zip(current_parses, transitions):
+            p.parse_step(t)
+        # remove finished parses
+        for i in reversed(range(len(current_parses))):
+            if len(current_parses[i].stack) == 1:
+                del unfinished_parses[i]
+    dependencies = [pp.dependencies for pp in partial_parses]
     ### END YOUR CODE
 
     return dependencies
